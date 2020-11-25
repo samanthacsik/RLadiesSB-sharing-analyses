@@ -1,0 +1,30 @@
+---
+title: "Accounts of Alien Abductions"
+knit: (function(input_file, encoding) {
+  out_dir <- 'report';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+author: "Sam Csik"
+date: "11/25/2020"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE, results = 'hide'}
+###########################
+# source in analyses
+###########################
+source(here::here("code", "UFO_abductions.R"))
+```
+
+
+```{r, echo = FALSE}
+abduction_map
+```
+
