@@ -5,9 +5,10 @@ knit: (function(input_file, encoding) {
   rmarkdown::render(input_file,
  encoding=encoding,
  output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
-author: "Sam Csik"
+author: "Sam Csik & Juliette Verstaen"
 date: "11/25/2020"
 output: html_document
+theme: 
 editor_options: 
   chunk_output_type: console
 ---
@@ -21,8 +22,8 @@ knitr::opts_chunk$set(echo = TRUE)
 # source in analyses
 ###########################
 source(here::here("code", "UFO_abductions.R"))
+source(here::here("code", "leaflet_abduction_map.R"))
 ```
-
 
 ```{r, echo = FALSE}
 abduction_map

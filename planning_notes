@@ -1,0 +1,15 @@
+Packages to include: 
+  - plotly
+  - mapview
+  - DT
+  
+Resources: 
+  - 
+  
+Things to include:
+  - Set theme: https://www.datadreaming.org/post/r-markdown-theme-gallery/
+  - data/authors
+  - Add TOC
+  - Link to resources in README
+  - code folding
+  - steamgraph ?
