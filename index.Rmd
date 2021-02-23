@@ -3,8 +3,6 @@ title: "Accounts of Alien Abductions"
 knit: (function(input_file, encoding) {
   out_dir <- 'docs';
   rmarkdown::render(input_file,
- encoding=encoding,
- output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 author: "Sam Csik & Juliette Verstaen"
 date: "11/25/2020"
 output: html_document
@@ -27,5 +25,15 @@ source(here::here("code", "leaflet_abduction_map.R"))
 
 ```{r, echo = FALSE}
 abduction_map
+```
+
+# making sure the pallettes work
+
+```{r}
+#source()
+alien_palette("galaxy_quest", n= 20, "continuous")
+
+alien_palette("mars_attacks", n= 6, "discrete")
+
 ```
 
