@@ -35,5 +35,13 @@ alien_palette("galaxy_quest", n= 20, "continuous")
 
 alien_palette("mars_attacks", n= 6, "discrete")
 
+alien_palette("fifth_element", n= 9, "discrete")
+
+alien_palette("alien", n= 6, "discrete")
+
+alien_palette("et", n= 5, "discrete") ## fifth element and et are very similar, probably cut one?
+
+alien_palette("zenon", n= 4, "discrete") 
+
 ```
 

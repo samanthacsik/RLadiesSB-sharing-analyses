@@ -6,12 +6,11 @@ library(RColorBrewer)
 library(colorspace)
 library(scales)
 
-
 alien_palettes <- list(
   
   ## 9 colors
   ## There is no future without it.
-  fith_element = c("#A1121C", "#F0000D",  "#FA3D14", "#FDCE90", "#E0918F", "#AFD7EE", "#42ACDC", "#0172B9", "#01466B"), 
+  fifth_element = c("#A1121C", "#F0000D",  "#FA3D14", "#FDCE90", "#E0918F", "#AFD7EE", "#42ACDC", "#0172B9", "#01466B"), 
   
   ## 8 colors
   ## Never give up. Never surrender.
