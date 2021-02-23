@@ -3,6 +3,8 @@
 # other type of map
 
 
+### write more documentation and annotations and edit
+
 UFO_time <- UFO_data %>% 
   clean_names() %>% 
   select(-date_posted) %>% 
