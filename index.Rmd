@@ -12,6 +12,7 @@ output:
     code_folding: hide
     toc: true
     toc_float: true
+    numbered_sections: true
     theme: spacelab
 editor_options: 
   chunk_output_type: console
@@ -31,9 +32,12 @@ Be on the lookout for <span style="color: green;">**TIP**</span>s and <span styl
 
 And finally, before we get started, the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) by *Yihui Xie, Christophe Dervieux, & Emily Riederer* and [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) by *Yihui Xie, J. J. Allaire, & Garrett Grolemund* contain TONS of incredible information and answers to nearly all of the RMarkdown-related questions we have encountered. We recommend coming back to these to learn more about all-things RMarkdown.
 
-## Setting up your RMarkdown file (a note on YAML)
+## Setting up your RMarkdown file
 
--describe YAML options here? or possbily just link to another .Rmd
+* [customizing the YAML](code/yaml.html)
+* [creating tabs](code/creating_tabs.html) 
+
+
 
 ```{r, warning = FALSE, message = FALSE, results = 'hide'}
 ###########################
@@ -140,7 +144,9 @@ abduction_map
 
 <span style="color: blue;">**RESOURCE:**</span> Explore [Leaflet for R](https://rstudio.github.io/leaflet/) for more ways to customize your Leaflet maps!
 
+## Resources
 
+* [Data Science Training for the Arctic Data Center, Session 9.1](http://training.arcticdata.io/2020-10-arctic/session-9-data-visualisation-and-publishing-to-the-web.html) : see here for a minimal example of how to publish your analyses/.Rmd to the web using GitHub Pages
 
 
 
