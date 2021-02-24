@@ -31,7 +31,9 @@ Be on the lookout for <span style="color: green;">**TIP**</span>s and <span styl
 
 And finally, before we get started, the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) by *Yihui Xie, Christophe Dervieux, & Emily Riederer* and [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) by *Yihui Xie, J. J. Allaire, & Garrett Grolemund* contain TONS of incredible information and answers to nearly all of the RMarkdown-related questions we have encountered. We recommend coming back to these to learn more about all-things RMarkdown.
 
-```{r}
+```{r, warning = FALSE, message = FALSE, results = 'hide'}
+###########################
+# load piackages
 ###########################
 
 ## for cleaning and wrangling
