@@ -1,47 +1,99 @@
 ---
-title: "Accounts of Alien Abductions"
+title: "Aliens Among Us"
 knit: (function(input_file, encoding) {
   out_dir <- 'docs';
   rmarkdown::render(input_file,
+  encoding=encoding,
+  output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 author: "Sam Csik & Juliette Verstaen"
 date: "11/25/2020"
 output: html_document
 theme: 
 editor_options: 
   chunk_output_type: console
+html_document: 
+  code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE, results = 'hide'}
+NOTE FROM SAM: I was thinking more and it might be a good idea to include all code directly in this .Rmd file (rather than just sourcing it in like I was saying to do earlier)...if we have the option for hide code using `code_folding` then I think it would be useful for folks to have all the code in one place.
+
+```{r, warning = FALSE, message = FALSE, results = 'hide'}
 ###########################
-# source in analyses
+# load packages
 ###########################
-source(here::here("code", "UFO_abductions.R"))
-source(here::here("code", "leaflet_abduction_map.R"))
+
+## for cleaning and wrangling
+library(tidyverse)
+library(janitor)
+library(lubridate)
+
+## for map making and general spatial work
+library(leaflet)
+library(mapview)
+library(sf)
+
+## for making tables
+library(DT)
+library(gt)
+
+## for palette making
+library(RColorBrewer)
+library(colorspace)
+library(scales)
+
+###########################
+# load data
+###########################
+
+UFO_data <- read_csv(here::here("data", "UFO_complete.csv"))
+
 ```
 
-```{r, echo = FALSE}
-abduction_map
+```{r, warning = FALSE, message = FALSE}
+##############################
+# clean up UFO_data to display in an interactive table
+##############################
+
+Table1_data <- UFO_data %>% 
+  select(datetime, `date posted`, latitude, longitude, country, city, state, `duration (seconds)`, shape, comments)
+```
+
+```{r, warning = FALSE, message = FALSE}
+##############################
+# generate an interactive table (using the `DT` package) 
+# NOTE: NEED TO FIX THIS UP A BIT STILL
+##############################
+
+Table1 <- datatable(Table1_data,
+                    class = 'cell-border stripe',
+                    colnames = c("Date/Time (of encounter)", "Date Reported", "Latitude", "Longitude", "Country", "State", "City", "Duration of Encounter (sec)", "Shape of UFO", "Comments"),
+                    caption = htmltools::tags$caption(
+                      style = 'caption-side: top; text-align: left;', 
+                      htmltools::em('Table 1: Globally reported UFO and extraterrestrial encounters.')),
+                    filter = 'top', options = list(pageLength = 5, autoWidth = TRUE))
+
+Table1
 ```
 
 # making sure the pallettes work
 
 ```{r}
 #source()
-alien_palette("galaxy_quest", n= 20, "continuous")
-
-alien_palette("mars_attacks", n= 6, "discrete")
-
-alien_palette("fifth_element", n= 9, "discrete")
-
-alien_palette("alien", n= 6, "discrete")
-
-alien_palette("et", n= 5, "discrete") ## fifth element and et are very similar, probably cut one?
-
-alien_palette("zenon", n= 4, "discrete") 
+# alien_palette("galaxy_quest", n= 20, "continuous")
+# 
+# alien_palette("mars_attacks", n= 6, "discrete")
+# 
+# alien_palette("fifth_element", n= 9, "discrete")
+# 
+# alien_palette("alien", n= 6, "discrete")
+# 
+# alien_palette("et", n= 5, "discrete") ## fifth element and et are very similar, probably cut one?
+# 
+# alien_palette("zenon", n= 4, "discrete") 
 
 ```
 
