@@ -1,0 +1,169 @@
+---
+title: "Clever alien title hereeee"
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+  encoding=encoding,
+  output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+author: "Sam Csik & Juliette Verstaen"
+date: "11/25/2020"
+output:
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+    theme: spacelab
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## About and Credits
+
+These materials were developed by Sam Csik & Juliette Verstaen using UFO Sighting Data from the National UFO Reporting  Center (NFORC). Data can be downloaded from [kaggle](https://www.kaggle.com/NUFORC/ufo-sightings).
+
+In this tutorial, we will demonstrate how to use a variety of different packages that allow for interactive data sharing, as well as how to leverage RMarkdown and [GitHub Pages](https://pages.github.com/) for building web pages to display reports (or whatever else you might dream of creating with RMarkdown).
+
+Be on the lookout for <span style="color: green;">**TIP**</span>s and <span style="color: blue;">**RESOURCE**</span>s throughout for pointers and links to resources!
+
+And finally, before we get started, the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) by *Yihui Xie, Christophe Dervieux, & Emily Riederer* and [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) by *Yihui Xie, J. J. Allaire, & Garrett Grolemund* contain TONS of incredible information and answers to nearly all of the RMarkdown-related questions we have encountered. We recommend coming back to these to learn more about all-things RMarkdown.
+
+```{r, warning = FALSE, message = FALSE, results = 'hide'}
+###########################
+# load piackages
+###########################
+
+## for cleaning and wrangling
+library(tidyverse)
+library(janitor)
+library(lubridate)
+
+## for map making and general spatial work
+library(leaflet)
+library(mapview)
+library(sf)
+
+## for making tables
+library(DT)
+library(gt)
+
+## for palette making
+library(RColorBrewer)
+library(colorspace)
+library(scales)
+
+###########################
+# load data
+###########################
+
+UFO_data <- read_csv(here::here("data", "UFO_complete.csv"))
+```
+
+
+## Alien Abductions {.tabset}
+
+### All accounts of abuctions 
+
+```{r, warning = FALSE, message = FALSE}
+##############################
+# clean up UFO_data to display in an interactive table
+##############################
+
+Table1_abduction_data <- UFO_data %>% 
+  clean_names() %>% 
+  mutate(date = mdy(date_posted)) %>% 
+  filter(str_detect(comments, "(?i)abduction")) %>% 
+  select(datetime, date_posted, country, state, city, duration_seconds, shape, comments)
+
+##############################
+# generate an interactive table (using the `DT` package) 
+##############################
+
+Table1 <- datatable(Table1_abduction_data,
+                    class = 'cell-border stripe',
+                    colnames = c("Date/Time (of encounter)", "Date Reported", 
+                                 "Country", "State", "City", "Duration of Encounter (sec)", 
+                                 "Shape of UFO", "Comments"),
+                    caption = htmltools::tags$caption(
+                      style = 'caption-side: top; text-align: left;', 
+                      htmltools::em('Table 1: Globally reported UFO and extraterrestrial encounters.')),
+                    filter = 'top', options = list(pageLength = 5, autoWidth = TRUE))
+
+##############################
+# display table in knitted .Rmd
+##############################
+
+Table1
+```
+
+### Map of alien abductions
+
+```{r}
+##############################
+# wrangle data (get latitude, longitude, comment information for all comments mentioning "abduction")
+##############################
+
+leaflet_abduction_data <- UFO_data %>% 
+  filter(str_detect(comments, "(?i)abduction")) %>% 
+  mutate(latitude = as.numeric(latitude), # leaflet requires lat/long to be numeric values
+         longitude = as.numeric(longitude))
+
+###########################
+# make a custom icon 
+###########################
+
+UFO_icon <- makeIcon(iconUrl = "media/ufo.png", 
+                     iconWidth = 35, iconHeight = 45)
+
+###########################
+# make interactive map (using the `leaflet` package)
+###########################
+
+abduction_map <- leaflet(leaflet_abduction_data) %>% 
+  addProviderTiles(providers$CartoDB.Positron) %>% # add basemap and choose style
+  addMarkers(lng = ~longitude, lat = ~latitude, icon = UFO_icon, popup = ~ comments) %>% # add your icons
+  addMiniMap(tiles = providers$CartoDB.Positron, # add a mini map to show zoom coverage
+             toggleDisplay = TRUE)
+
+###########################
+# display map in knitted .Rmd
+###########################
+
+abduction_map
+```
+
+**RESOURCE:** Explore [Leaflet for R](https://rstudio.github.io/leaflet/) for more ways to customize your Leaflet maps!
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+##############################
+# making sure the pallettes work
+##############################
+
+#source()
+# alien_palette("galaxy_quest", n= 20, "continuous")
+# 
+# alien_palette("mars_attacks", n= 6, "discrete")
+# 
+# alien_palette("fifth_element", n= 9, "discrete")
+# 
+# alien_palette("alien", n= 6, "discrete")
+# 
+# alien_palette("et", n= 5, "discrete") ## fifth element and et are very similar, probably cut one?
+# 
+# alien_palette("zenon", n= 4, "discrete") 
+
+```
+

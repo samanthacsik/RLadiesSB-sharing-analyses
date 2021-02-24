@@ -1,0 +1,12 @@
+---
+title: "yaml"
+author: "Sam Csik"
+date: "2/24/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+add info here
