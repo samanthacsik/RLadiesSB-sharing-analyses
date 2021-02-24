@@ -23,9 +23,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## About and Credits
 
-These materials were developed by Sam Csik & Juliette Verstaen using UFO Sighting Data from the National UFO Reporting  Center (NFORC). Data can be downloaded from [kaggle](https://www.kaggle.com/NUFORC/ufo-sightings).
+These materials were developed by Sam Csik & Juliette Verstaen using UFO Sighting Data from the National UFO Reporting  Center (NFORC). Data can be downloaded from [kaggle](https://www.kaggle.com/NUFORC/ufo-sightings). Source code can be found on [GitHub](https://github.com/samanthacsik/RLadiesSB-github-pages).
 
-In this tutorial, we will demonstrate how to use a variety of different packages that allow for interactive data sharing, as well as how to leverage RMarkdown and [GitHub Pages](https://pages.github.com/) for building web pages to display reports (or whatever else you might dream of creating with RMarkdown).
+In this tutorial, we will demonstrate how to use a variety of different packages that allow for interactive data sharing, as well as how to leverage RMarkdown and [GitHub Pages](https://pages.github.com/) for building web pages to display reports (or whatever else you might dream of creating with RMarkdown). 
 
 Be on the lookout for <span style="color: green;">**TIP**</span>s and <span style="color: blue;">**RESOURCE**</span>s throughout for pointers and links to resources!
 
@@ -92,7 +92,7 @@ Table1 <- datatable(Table1_abduction_data,
                                  "Shape of UFO", "Comments"),
                     caption = htmltools::tags$caption(
                       style = 'caption-side: top; text-align: left;', 
-                      htmltools::em('Table 1: Globally reported UFO and extraterrestrial encounters.')),
+                      htmltools::em('Table 1: Global accounts of alien abductions from 1910-2013.')),
                     filter = 'top', options = list(pageLength = 5, autoWidth = TRUE))
 
 ##############################
@@ -138,7 +138,7 @@ abduction_map <- leaflet(leaflet_abduction_data) %>%
 abduction_map
 ```
 
-**RESOURCE:** Explore [Leaflet for R](https://rstudio.github.io/leaflet/) for more ways to customize your Leaflet maps!
+<span style="color: blue;">**RESOURCE:**</span> Explore [Leaflet for R](https://rstudio.github.io/leaflet/) for more ways to customize your Leaflet maps!
 
 
 
