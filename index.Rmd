@@ -46,7 +46,7 @@ And finally, before we get started, the [R Markdown Cookbook](https://bookdown.o
 ## for cleaning and wrangling
 library(tidyverse)
 library(janitor)
-library(lubridate)
+library(lubridate) # may not end up using this one, but keeping for now
 
 ## for map making and general spatial work
 library(leaflet)
@@ -80,7 +80,6 @@ UFO_data <- read_csv(here::here("data", "UFO_complete.csv"))
 
 Table1_abduction_data <- UFO_data %>% 
   clean_names() %>% 
-  mutate(date = mdy(date_posted)) %>% 
   filter(str_detect(comments, "(?i)abduction")) %>% 
   select(datetime, date_posted, country, state, city, duration_seconds, shape, comments)
 
