@@ -9,4 +9,36 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-add info here
+At the top of every RMarkdown file, you'll see a `YAML` metadata header section enclosed by `---`. By default, it will populate the file title, author, creation date, and output file type, but there are **tons** of ways to customize it to apply functions and formatting across your entire document. These options can vary by output file type. For `.html` files, see [here](https://bookdown.org/yihui/rmarkdown/html-document.html) and for `.pdf` files, see [here](https://bookdown.org/yihui/rmarkdown/pdf-document.html).
+
+For our TITLE_HERE `.html` document, we used the following yaml specifications:
+
+```
+---
+title: "Clever alien title hereeee"
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+  encoding=encoding,
+  output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+author: "Sam Csik & Juliette Verstaen"
+date: "11/25/2020"
+output:
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+    theme: spacelab
+editor_options: 
+  chunk_output_type: console
+---
+```
+
+Notice that we can specify both `output:` options as well as `editor_options:`. Anything that we specify under `output:` applies to our knitted/rendered `.html` document, whereas specifying `editor_options:` alters RStudio's default behaviors. For example, I prefer to see outputs rendered in the console when testing (rather than the default in-line renderings).
+
+Other additions we've made are: 
+* `knit:` we've added a custom function here to render our `index.html` file to a sub-directory called `docs`
+* `code_folding:` hide/show; if hide, defaults to collapsed code chunks with the ability to expand/show them individually
+* `toc:` true/false; if true, include a Table of Contents based on any specified headers
+* `toc_float:` true/false: if true, Table of Contents floats so that it is always visible, even when the document is scrolled
+* `theme:` set the Bootstrap theme to use across your document; valid themes include default, cerulean, journal, flatly, darkly, readable, spacelab, united, cosmo, lumen, paper, sandstone, simplex, and yeti 

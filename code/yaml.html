@@ -195,7 +195,27 @@ summary {
 </div>
 
 
-<p>add info here</p>
+<p>At the top of every RMarkdown file, you’ll see a <code>YAML</code> header section enclosed by <code>---</code>. By default, it will populate the file title, author, creation date, and output file type, but there are <strong>tons</strong> of ways to customize it to apply functions and formatting across your entire document. These options can vary by output file type. For <code>.html</code> files, see <a href="https://bookdown.org/yihui/rmarkdown/html-document.html">here</a> and for <code>.pdf</code> files, see <a href="https://bookdown.org/yihui/rmarkdown/pdf-document.html">here</a>.</p>
+<p>For our TITLE_HERE <code>.html</code> document, we used the following yaml specifications:</p>
+<pre><code>---
+title: &quot;Clever alien title hereeee&quot;
+knit: (function(input_file, encoding) {
+  out_dir &lt;- &#39;docs&#39;;
+  rmarkdown::render(input_file,
+  encoding=encoding,
+  output_file=file.path(dirname(input_file), out_dir, &#39;index.html&#39;))})
+author: &quot;Sam Csik &amp; Juliette Verstaen&quot;
+date: &quot;11/25/2020&quot;
+output:
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+    numbered_sections: true
+    theme: spacelab
+editor_options: 
+  chunk_output_type: console
+---</code></pre>
 
 
 
