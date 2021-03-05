@@ -26,12 +26,12 @@ Be on the lookout for <span style="color: green;">**TIP**</span>s and <span styl
 
 And finally, before we get started, the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) by *Yihui Xie, Christophe Dervieux, & Emily Riederer* and [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) by *Yihui Xie, J. J. Allaire, & Garrett Grolemund* contain **tons** of incredible information and answers to nearly all of the RMarkdown-related questions we have encountered. We recommend coming back to these to learn more about all-things RMarkdown.
 
-## Setting up your RMarkdown file (NOT WORKING YET)
+## Setting up your RMarkdown file
 
-* [customizing the YAML](./code/yaml.html)
-* [a note on code chunks]()
-* [in-line formatting]()
-* [creating tabs](code/creating_tabs.html) 
+* [customizing the YAML](./linked_pages/yaml.html)
+* [a note on code chunks](./linked_pages/code_chunks.html)
+* [in-line formatting](./linked_pages/inline_formatting.html)
+* [creating tabs](linked_pages/creating_tabs.html) 
 
 ```{r, warning = FALSE, message = FALSE, results = 'hide', echo = FALSE}
 ###########################
