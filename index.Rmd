@@ -23,17 +23,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## About and Credits
 
-These materials were developed by Sam Csik & Juliette Verstaen using UFO Sighting Data from the National UFO Reporting  Center (NFORC). Data can be downloaded from [kaggle](https://www.kaggle.com/NUFORC/ufo-sightings). Source code can be found on [GitHub](https://github.com/samanthacsik/RLadiesSB-github-pages).
+These materials were developed by Sam Csik & Juliette Verstaen using UFO Sighting Data from the National UFO Reporting  Center (NUFORC). Data can be downloaded from [kaggle](https://www.kaggle.com/NUFORC/ufo-sightings). Source code can be found on [GitHub](https://github.com/samanthacsik/RLadiesSB-github-pages).
 
-In this tutorial, we will demonstrate how to use a variety of different packages that allow for interactive data sharing, as well as how to leverage RMarkdown and [GitHub Pages](https://pages.github.com/) for building web pages to display reports (or whatever else you might dream of creating with RMarkdown). 
+In this tutorial, we will demonstrate how to use a variety of different packages that allow for interactive data sharing, as well as how to leverage [RMarkdown](https://rmarkdown.rstudio.com/) and [GitHub Pages](https://pages.github.com/) for building web pages to display reports (or whatever else you might dream of creating with RMarkdown). 
 
 Be on the lookout for <span style="color: green;">**TIP**</span>s and <span style="color: blue;">**RESOURCE**</span>s throughout for pointers and links to resources!
 
-And finally, before we get started, the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) by *Yihui Xie, Christophe Dervieux, & Emily Riederer* and [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) by *Yihui Xie, J. J. Allaire, & Garrett Grolemund* contain TONS of incredible information and answers to nearly all of the RMarkdown-related questions we have encountered. We recommend coming back to these to learn more about all-things RMarkdown.
+And finally, before we get started, the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) by *Yihui Xie, Christophe Dervieux, & Emily Riederer* and [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) by *Yihui Xie, J. J. Allaire, & Garrett Grolemund* contain **tons** of incredible information and answers to nearly all of the RMarkdown-related questions we have encountered. We recommend coming back to these to learn more about all-things RMarkdown.
 
 ## Setting up your RMarkdown file (NOT WORKING YET)
 
-* [customizing the YAML](code/yaml.html)
+* [customizing the YAML](./code/yaml.html)
 * [a note on code chunks]()
 * [in-line formatting]()
 * [creating tabs](code/creating_tabs.html) 
@@ -52,6 +52,10 @@ library(lubridate) # may not end up using this one, but keeping for now
 library(leaflet)
 library(mapview)
 library(sf)
+
+## for working with time series data
+library(dygraphs)
+library(xts)
 
 ## for making tables
 library(DT)
@@ -80,8 +84,10 @@ UFO_data <- read_csv(here::here("data", "UFO_complete.csv"))
 
 Table1_abduction_data <- UFO_data %>% 
   clean_names() %>% 
+  #mutate(as_datetime(datetime)) %>% 
   filter(str_detect(comments, "(?i)abduction")) %>% 
-  select(datetime, date_posted, country, state, city, duration_seconds, shape, comments)
+  select(datetime, date_posted, country, state, city, duration_seconds, shape, comments) %>% 
+  arrange(datetime)
 
 ##############################
 # generate an interactive table (using the `DT` package) 
@@ -130,7 +136,7 @@ UFO_icon <- makeIcon(iconUrl = "media/ufo.png",
 
 abduction_map <- leaflet(leaflet_abduction_data) %>% 
   addProviderTiles(providers$CartoDB.Positron) %>% # add basemap and choose style
-  addMarkers(lng = ~longitude, lat = ~latitude, icon = UFO_icon, popup = ~ comments) %>% # add your icons
+  addMarkers(lng = ~longitude, lat = ~latitude, icon = UFO_icon, popup = ~ comments) %>% # add UFO_icon as data points
   addMiniMap(tiles = providers$CartoDB.Positron, # add a mini map to show zoom coverage
              toggleDisplay = TRUE)
 
@@ -147,23 +153,5 @@ abduction_map
 
 * [Data Science Training for the Arctic Data Center, Session 9.1](http://training.arcticdata.io/2020-10-arctic/session-9-data-visualisation-and-publishing-to-the-web.html) : see here for a minimal example of how to publish your analyses/.Rmd to the web using GitHub Pages
 
-```{r}
-##############################
-# making sure the pallettes work
-##############################
 
-#source()
-# alien_palette("galaxy_quest", n= 20, "continuous")
-# 
-# alien_palette("mars_attacks", n= 6, "discrete")
-# 
-# alien_palette("fifth_element", n= 9, "discrete")
-# 
-# alien_palette("alien", n= 6, "discrete")
-# 
-# alien_palette("et", n= 5, "discrete") ## fifth element and et are very similar, probably cut one?
-# 
-# alien_palette("zenon", n= 4, "discrete") 
-
-```
 
