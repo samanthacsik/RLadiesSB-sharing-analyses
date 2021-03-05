@@ -38,3 +38,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 .Rproj.user
+
+# stuff to ignore
+media/gh_page_screenshots/*
