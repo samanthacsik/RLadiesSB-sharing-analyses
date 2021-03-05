@@ -39,5 +39,6 @@ vignettes/*.pdf
 .Renviron
 .Rproj.user
 
+
 # stuff to ignore
 media/gh_page_screenshots/*

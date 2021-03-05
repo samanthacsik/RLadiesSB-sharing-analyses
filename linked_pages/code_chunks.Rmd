@@ -2,7 +2,9 @@
 title: "code chunks"
 author: "Sam Csik & Juliette Verstaen"
 date: "March 2021"
-output: html_document
+output: 
+  html_document:
+    theme: spacelab
 ---
 
 ```{r setup, include=FALSE}

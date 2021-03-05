@@ -2,7 +2,9 @@
 title: "Creating Tabs"
 author: "Sam Csik"
 date: "2/24/2021"
-output: html_document
+output: 
+  html_document:
+    theme: spacelab
 ---
 
 ```{r setup, include=FALSE}

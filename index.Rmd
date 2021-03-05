@@ -20,18 +20,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 These materials were developed by Sam Csik & Juliette Verstaen using UFO Sighting Data from the National UFO Reporting  Center (NUFORC). Data can be downloaded from [kaggle](https://www.kaggle.com/NUFORC/ufo-sightings). Source code can be found on [GitHub](https://github.com/samanthacsik/RLadiesSB-github-pages).
 
-In this tutorial, we will demonstrate how to use a variety of different packages that allow for interactive data sharing, as well as how to leverage [RMarkdown](https://rmarkdown.rstudio.com/) and [GitHub Pages](https://pages.github.com/) for building web pages to display reports (or whatever else you might dream of creating with RMarkdown). 
+In this example report, we demonstrate how to use a variety of different `HTML widgets` that allow for interactive web visualizations, as well as how to leverage [RMarkdown](https://rmarkdown.rstudio.com/) and [GitHub Pages](https://pages.github.com/) for building web pages to display reports (or whatever else you might dream of creating with RMarkdown). 
 
-Be on the lookout for <span style="color: green;">**TIP**</span>s and <span style="color: blue;">**RESOURCE**</span>s throughout for pointers and links to resources!
+Expand hidden `Code` chunks to see how we've created the following tables, maps, and plots. Also, be on the lookout for <span style="color: green;">**TIP**</span>s and <span style="color: blue;">**RESOURCE**</span>s throughout for pointers and links to resources!
 
 And finally, before we get started, the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) by *Yihui Xie, Christophe Dervieux, & Emily Riederer* and [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) by *Yihui Xie, J. J. Allaire, & Garrett Grolemund* contain **tons** of incredible information and answers to nearly all of the RMarkdown-related questions we have encountered. We recommend coming back to these to learn more about all-things RMarkdown.
 
 ## Setting up your RMarkdown file
 
-* [customizing the YAML](./linked_pages/yaml.html)
-* [a note on code chunks](./linked_pages/code_chunks.html)
-* [in-line formatting](./linked_pages/inline_formatting.html)
+* [customizing the YAML](linked_pages/yaml.html)
+* [a note on code chunks](linked_pages/code_chunks.html)
+* [in-line formatting](linked_pages/inline_formatting.html)
 * [creating tabs](linked_pages/creating_tabs.html) 
+* [publishing your .Rmd as a GitHub Page](linked_pages/github_pages.html)
 
 ```{r, warning = FALSE, message = FALSE, results = 'hide', echo = FALSE}
 ###########################
@@ -146,7 +147,7 @@ abduction_map
 
 ## Resources
 
-* [Data Science Training for the Arctic Data Center, Session 9.1](http://training.arcticdata.io/2020-10-arctic/session-9-data-visualisation-and-publishing-to-the-web.html) : see here for a minimal example of how to publish your analyses/.Rmd to the web using GitHub Pages
+* For a list of awesome interactive **`htmlwidgets`** for R see [here](https://www.htmlwidgets.org/showcase_leaflet.html). Find even more options in the [htmlwidgets gallery](http://gallery.htmlwidgets.org/).
 
 
 

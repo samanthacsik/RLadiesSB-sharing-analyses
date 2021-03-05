@@ -1,0 +1,52 @@
+---
+title: "publish a knitted RMarkdown as a GitHub Page"
+author: "Sam Csik & Juliette Verstaen"
+date: "March 2021"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: spacelab
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### If you're starting from scratch, begin at **Step 1.** If you already have an existing repository that you'd like to create a GitHub page for, skip to **Step ?.** 
+
+### **Step 1:** Create a new repository on GitHub
+```{r Step_01, echo = FALSE, fig.cap = "Do so by navigating to Repositories > New. Give your repo an informative name and a description, if you'd like. Initializing it with a README and a .gitignore is recommended.", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/01_setup_repo.png")
+```
+
+### **Step 2:** Clone your respository to your computer
+
+#### **Step 2.1:** Copy your repository URL from GitHub
+```{r Step_02.1, echo = FALSE, fig.cap = "Click on the green 'Code' button and copy the URL to your clipboard.", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/02.1_clone_repo.png")
+```
+
+#### **Step 2.2:** Create a new project in RStudio. 
+```{r Step_02.2, echo = FALSE, fig.cap = "In RStudio, click on Project (top right hand corner) > New Project.", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/02.2_new_project.png")
+```
+
+#### **Step 2.3:** Select "Version Control." 
+```{r Step_02.3, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/02.3_version_control.png")
+```
+
+#### **Step 2.4:** Select "Git." 
+```{r Step_02.4, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/02.4_git.png")
+```
+
+#### **Step 2.5:** Paste the repo URL and press the 'Tab' button on your keyboard to auto-fill the Project Directory Name. Click 'Create Project.'
+```{r Step_02.5, echo = FALSE, fig.cap = "Remember to choose where you would like to save your project by clicking on the 'Browse' button and picking a subdirectory. I like to save all my projects under a 'Repositories' subdirectory for the sake of organization.", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/02.5_clone_git_repo.png")
+```
+
+### **Step 3:** Create an RMarkdown file and make some edits.
+
+#### **Step 3.1:**
