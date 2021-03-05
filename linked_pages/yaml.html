@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Sam Csik" />
+<meta name="author" content="Sam Csik &amp; Juliette Verstaen" />
 
 
 <title>yaml</title>
@@ -189,33 +189,35 @@ summary {
 
 
 <h1 class="title toc-ignore">yaml</h1>
-<h4 class="author">Sam Csik</h4>
-<h4 class="date">2/24/2021</h4>
+<h4 class="author">Sam Csik &amp; Juliette Verstaen</h4>
+<h4 class="date">March 2021</h4>
 
 </div>
 
 
-<p>At the top of every RMarkdown file, you’ll see a <code>YAML</code> header section enclosed by <code>---</code>. By default, it will populate the file title, author, creation date, and output file type, but there are <strong>tons</strong> of ways to customize it to apply functions and formatting across your entire document. These options can vary by output file type. For <code>.html</code> files, see <a href="https://bookdown.org/yihui/rmarkdown/html-document.html">here</a> and for <code>.pdf</code> files, see <a href="https://bookdown.org/yihui/rmarkdown/pdf-document.html">here</a>.</p>
-<p>For our TITLE_HERE <code>.html</code> document, we used the following yaml specifications:</p>
+<p>At the top of every RMarkdown file, you’ll see a <code>YAML</code> metadata header section enclosed by <code>---</code>. By default, it will populate the file <strong>title</strong>, <strong>author</strong>, <strong>creation date</strong>, and <strong>output file type</strong>, but there are <em>tons</em> of ways to customize it to apply functions and formatting across your entire document. These options can vary by output file type. For <code>.html</code> files, see <a href="https://bookdown.org/yihui/rmarkdown/html-document.html">here</a> and for <code>.pdf</code> files, see <a href="https://bookdown.org/yihui/rmarkdown/pdf-document.html">here</a>.</p>
+<p>For our <strong>A <em>very</em> important report on global UFO sightings and abductions</strong> <code>.html</code> document, we used the following yaml specifications:</p>
 <pre><code>---
-title: &quot;Clever alien title hereeee&quot;
-knit: (function(input_file, encoding) {
-  out_dir &lt;- &#39;docs&#39;;
-  rmarkdown::render(input_file,
-  encoding=encoding,
-  output_file=file.path(dirname(input_file), out_dir, &#39;index.html&#39;))})
+title: &quot;A *very* important report on global UFO sightings and abductions&quot;
 author: &quot;Sam Csik &amp; Juliette Verstaen&quot;
-date: &quot;11/25/2020&quot;
+date: &quot;March 2021&quot;
 output:
   html_document:
     code_folding: hide
     toc: true
     toc_float: true
-    numbered_sections: true
     theme: spacelab
 editor_options: 
   chunk_output_type: console
 ---</code></pre>
+<p>Notice that we can specify both <code>output</code> and <code>editor_options</code>. Anything that we specify under <code>output:</code> applies to our knitted/rendered <code>.html</code> document, whereas specifying <code>editor_options:</code> alters RStudio’s default behaviors. For example, I prefer to see outputs rendered in the console when testing (rather than the default in-line renderings).</p>
+<p>Other additions we’ve made are:</p>
+<ul>
+<li><strong><code>code_folding:</code></strong> hide/show; if hide, defaults to collapsed code chunks with the ability to expand/show them individually</li>
+<li><strong><code>toc:</code></strong> true/false; if true, include a Table of Contents based on any specified headers</li>
+<li><strong><code>toc_float:</code></strong> true/false: if true, Table of Contents floats so that it is always visible, even when the document is scrolled</li>
+<li><strong><code>theme:</code></strong> set the Bootstrap theme to use across your document; valid themes include default, cerulean, journal, flatly, darkly, readable, spacelab, united, cosmo, lumen, paper, sandstone, simplex, and yeti</li>
+</ul>
 
 
 
