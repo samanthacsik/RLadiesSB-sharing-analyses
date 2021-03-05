@@ -13,40 +13,176 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#### If you're starting from scratch, begin at **Step 1.** If you already have an existing repository that you'd like to create a GitHub page for, skip to **Step ?.** 
+ <br>
+ 
+#### If you are starting from scratch, begin at **Step 1**. If you already have an existing repository that you would like to create a GitHub Page for, you can skip to **Step 3**. 
 
+ <br>
+ 
 ### **Step 1:** Create a new repository on GitHub
-```{r Step_01, echo = FALSE, fig.cap = "Do so by navigating to Repositories > New. Give your repo an informative name and a description, if you'd like. Initializing it with a README and a .gitignore is recommended.", out.width = '100%'}
+Do so by navigating to Repositories > New. Give your repo an informative name and a description, if you'd like. Initializing it with a `README` and a `.gitignore` is recommended.
+```{r Step_01, echo = FALSE, fig.cap = "", out.width = '100%'}
 knitr::include_graphics("../media/gh_page_screenshots/01_setup_repo.png")
 ```
 
+ <br>
+ 
 ### **Step 2:** Clone your respository to your computer
 
+ <br>
+ 
 #### **Step 2.1:** Copy your repository URL from GitHub
-```{r Step_02.1, echo = FALSE, fig.cap = "Click on the green 'Code' button and copy the URL to your clipboard.", out.width = '100%'}
+Click on the green 'Code' button and copy the URL to your clipboard.
+```{r Step_02.1, echo = FALSE, fig.cap = "", out.width = '100%'}
 knitr::include_graphics("../media/gh_page_screenshots/02.1_clone_repo.png")
 ```
 
+ <br>
+ 
 #### **Step 2.2:** Create a new project in RStudio. 
-```{r Step_02.2, echo = FALSE, fig.cap = "In RStudio, click on Project (top right hand corner) > New Project.", out.width = '100%'}
+In RStudio, click on Project (top right hand corner) > New Project.
+```{r Step_02.2, echo = FALSE, fig.cap = "", out.width = '100%'}
 knitr::include_graphics("../media/gh_page_screenshots/02.2_new_project.png")
 ```
 
+ <br>
+ 
 #### **Step 2.3:** Select "Version Control." 
 ```{r Step_02.3, echo = FALSE, fig.cap = "", out.width = '100%'}
 knitr::include_graphics("../media/gh_page_screenshots/02.3_version_control.png")
 ```
 
+ <br>
+ 
 #### **Step 2.4:** Select "Git." 
 ```{r Step_02.4, echo = FALSE, fig.cap = "", out.width = '100%'}
 knitr::include_graphics("../media/gh_page_screenshots/02.4_git.png")
 ```
-
+ 
+ <br>
+ 
 #### **Step 2.5:** Paste the repo URL and press the 'Tab' button on your keyboard to auto-fill the Project Directory Name. Click 'Create Project.'
-```{r Step_02.5, echo = FALSE, fig.cap = "Remember to choose where you would like to save your project by clicking on the 'Browse' button and picking a subdirectory. I like to save all my projects under a 'Repositories' subdirectory for the sake of organization.", out.width = '100%'}
+Remember to choose where you would like to save your project by clicking on the 'Browse' button and picking a subdirectory. I like to save all my projects under a 'Repositories' subdirectory for the sake of organization.
+```{r Step_02.5, echo = FALSE, fig.cap = "", out.width = '100%'}
 knitr::include_graphics("../media/gh_page_screenshots/02.5_clone_git_repo.png")
 ```
 
+ <br>
+ 
 ### **Step 3:** Create an RMarkdown file and make some edits.
 
-#### **Step 3.1:**
+ <br>
+ 
+#### **Step 3.1:** To create a new R Markdown file, click File > New File > R Markdown... (or click on the green <span style="color: green;">+</span> sign icon in the top left corner of RStudio)
+```{r Step_03.1, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/03.1_create_RMarkdown.png")
+```
+
+ <br>
+ 
+#### **Step 3.2:** Give it a title and be sure that the Default Output Format is set to `HTML`.
+```{r Step_03.2, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/03.2_give_it_a_title.png")
+```
+
+ <br>
+ 
+#### **Step 3.3:** Delete everything after the initial code chunk (i.e. from `## R Markdown` at line 12 to `Note that...` at line 30)...
+```{r Step_03.3, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/03.3_Rmarkdown_has_been created.png")
+```
+
+ <br>
+ 
+#### **Step 3.4:** ...and add some text or code of your own!
+```{r Step_03.4, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/03.4_made_edits.png")
+```
+
+ <br>
+ 
+#### **Step 3.5:** Save and knit your `.Rmd file`. **IMPORTANT:** Be sure to name your file as `index.Rmd` and save to your root directory.
+```{r Step_03.5, echo = FALSE, fig.cap = "Clicking the knit button will automatically save your `.Rmd file.` If you have not yet saved your file before clicking knit for the first time, it will open up the window to name and save your file before proceeding.", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/03.5_save_and_knit.png")
+```
+
+Your knitted `.html` file will be saved to your root directory alongside the original `.Rmd`. You are able to send this `.html` file to others for viewing, but hang tight...GitHub Pages will make it even easier to share your work and ensure that your collaborators have the most up-to-date version.
+```{r Step_03.6, echo = FALSE, fig.cap = "NOTE: This knitted document is only stored as an `.html` file on your local computer at this point.", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/03.6_knitted_example.png")
+```
+
+ <br>
+ 
+### **Step 4:** Push your `index.Rmd` and `index.html` to GitHub. 
+If you are unfamiliar or confused by the process of getting files from your computer to GitHub, check out this fun comic by *Erika Heidi*.
+```{r Git Comic, echo = FALSE, fig.cap = "", out.width = '90%'}
+knitr::include_graphics("../media/gh_page_screenshots/git_comic.png")
+```
+
+ <br>
+ 
+#### **Step 4.1:** *Stage* your files by checking the boxes under the `Git` tab.
+```{r Step_04.1, echo = FALSE, fig.cap = "NOTE: Since I didn't initially push my `gh_pages_example.Rproj`, I'll do that now as well.", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/04.1_stage.png")
+```
+
+ <br>
+ 
+#### **Step 4.2:** *Commit* your files by first adding a descriptive commit message, then click 'Commit.'
+```{r Step_04.2, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/04.2_commit.png")
+```
+
+ <br>
+ 
+#### **Step 4.3:** *Push* your files to GitHub by clicking 'Push.'
+```{r Step_04.3, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/04.3_push.png")
+```
+
+ <br>
+ 
+### **Step 5:** Turn your `index.html` file into a web page.
+
+We're almost there! First head back to your GitHub repository and click the "Settings" tab.
+```{r Step_05, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/05_settings.png")
+```
+
+ <br>
+ 
+#### **Step 5.1:** Scroll down until you find the GitHub Pages settings section. GitHub Pages is currently disabled. To activate, first select the `main` branch from the dropdown.
+```{r Step_05.1, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/05.1_select_branch.png")
+```
+
+ <br>
+ 
+#### **Step 5.2:** Set the folder to `/(root)` (if not already set).
+```{r Step_05.2, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/05.2_select_folder.png")
+```
+
+#### **Step 5.3:** Now save! GitHub will tell you that "Your site is ready to be published at `https://{your-username}.github.io/{your-repo-name}/`" in a light blue banner. 
+
+It can take a bit for your GitHub Pages build to complete and for your changes to appear (sometimes up to 10 minutes). Be patient :) 
+```{r Step_05.3, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/05.3_save_ghp.png")
+```
+
+If your build isn't yet ready for viewing, you'll typically get a `404` error after clicking on your URL.
+```{r Step_05.4, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/05.4_waiting.png")
+```
+
+When the banner surrounding your GitHub Page URL turns green (refreshing your page helps), your build is typically ready to go.
+```{r Step_05.5, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/05.5_published.png")
+```
+
+If your URL still doesn't want to resolve, adding `index` after the backslash of your URL sometimes helps to expedite the process. Regardless, patience is often key and your web page will be up and running soon!
+```{r Step_05.6, echo = FALSE, fig.cap = "", out.width = '100%'}
+knitr::include_graphics("../media/gh_page_screenshots/05.6_backslash.png")
+```
+
+Now that you have your web page up and running, you can send your URL to collaborators to easily share your report/work. If you need to make changes, simply edit your `index.Rmd` in RStudio and push changes to your GitHub repo (i.e **Steps 3.4 - 4.3**). Your GitHub page will automatically update, which means no need to send a new, updated `.html` file or a different URL (but remember, it can a few minutes before those changes appear online)!
