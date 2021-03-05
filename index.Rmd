@@ -1,10 +1,5 @@
 ---
 title: "A *very* important report on global UFO sightings and abductions"
-knit: (function(input_file, encoding) {
-  out_dir <- 'docs';
-  rmarkdown::render(input_file,
-  encoding=encoding,
-  output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 author: "Sam Csik & Juliette Verstaen"
 date: "March 2020"
 output:
