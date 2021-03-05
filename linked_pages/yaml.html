@@ -195,7 +195,9 @@ summary {
 </div>
 
 
+<p><br></p>
 <p>At the top of every RMarkdown file, you’ll see a <code>YAML</code> metadata header section enclosed by <code>---</code>. By default, it will populate the file <strong>title</strong>, <strong>author</strong>, <strong>creation date</strong>, and <strong>output file type</strong>, but there are <em>tons</em> of ways to customize it to apply functions and formatting across your entire document. These options can vary by output file type. For <code>.html</code> files, see <a href="https://bookdown.org/yihui/rmarkdown/html-document.html">here</a> and for <code>.pdf</code> files, see <a href="https://bookdown.org/yihui/rmarkdown/pdf-document.html">here</a>.</p>
+<p><br></p>
 <p>For our <strong>A <em>very</em> important report on global UFO sightings and abductions</strong> <code>.html</code> document, we used the following yaml specifications:</p>
 <pre><code>---
 title: &quot;A *very* important report on global UFO sightings and abductions&quot;
@@ -210,7 +212,9 @@ output:
 editor_options: 
   chunk_output_type: console
 ---</code></pre>
+<p><br></p>
 <p>Notice that we can specify both <code>output</code> and <code>editor_options</code>. Anything that we specify under <code>output:</code> applies to our knitted/rendered <code>.html</code> document, whereas specifying <code>editor_options:</code> alters RStudio’s default behaviors. For example, I prefer to see outputs rendered in the console when testing (rather than the default in-line renderings).</p>
+<p><br></p>
 <p>Other additions we’ve made are:</p>
 <ul>
 <li><strong><code>code_folding:</code></strong> hide/show; if hide, defaults to collapsed code chunks with the ability to expand/show them individually</li>

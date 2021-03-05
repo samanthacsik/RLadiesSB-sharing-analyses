@@ -1,7 +1,7 @@
 ---
-title: "Creating Tabs"
-author: "Sam Csik"
-date: "2/24/2021"
+title: "creating tabs"
+author: "Sam Csik & Juliette Verstaen"
+date: "March 2021"
 output: 
   html_document:
     theme: spacelab
@@ -11,6 +11,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+ <br>
+ 
 You'll notice that we've organized some of our content using tabs. This is done by applying the `{.tabset}` class attribute to headers (denoted here by `##`) within your document, making any sub-headers (denoted here by `###`) appear in tabs.
 
 ```markdown
@@ -18,9 +20,9 @@ You'll notice that we've organized some of our content using tabs. This is done 
 
 ### All accounts of abductions
 
-(insert DT table code chunk here)
+(insert code chunk/content here; you'll find our DT table code here)
 
 ### Map of alien abductions
 
-(insert leaflet code chunk here)
+(insert code chunk/content here; you'll find our leaflet code here)
 ```
