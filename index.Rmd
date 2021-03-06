@@ -64,22 +64,31 @@ library(colorspace)
 library(scales)
 
 ###########################
+# source in custom color palette
+###########################
+
+source(here::here("code", "palettes.R"))
+
+###########################
 # load data
 ###########################
 
-UFO_data <- read_csv(here::here("data", "UFO_complete.csv"))
+UFO_data_all <- read_csv(here::here("data", "UFO_complete.csv")) 
+
+UFO_data_cleaned <- read_csv(here::here("data", "UFO_complete.csv")) %>% 
+  filter(!is.na(city))
 ```
 
 ## Alien Encounters {.tabset}
 
-### Timeseries
+### Alien Encounters Timeseres (`dygraph`)
 ```{r}
-source(here::here("code/palettes.R"))
+
 colors <- alien_palette("galaxy_quest", 8, "discrete")
 
 # create time series object
 
-UFO_dygraph <- UFO_data %>% 
+UFO_dygraph <- UFO_data_cleaned %>% 
   clean_names() %>% 
   select(-date_posted) %>% 
   separate(datetime, c("month", "second", "third"), sep = "/") %>% 
@@ -114,14 +123,13 @@ dy_plot
 
 ## Alien Abductions {.tabset}
 
-### All accounts of abuctions 
-
+### All accounts of abuctions (`DT`)
 ```{r, warning = FALSE, message = FALSE}
 ##############################
 # clean up UFO_data to display in an interactive table
 ##############################
 
-Table1_abduction_data <- UFO_data %>% 
+Table1_abduction_data <- UFO_data_cleaned %>% 
   clean_names() %>% 
   #mutate(as_datetime(datetime)) %>% 
   filter(str_detect(comments, "(?i)abduction")) %>% 
@@ -150,14 +158,13 @@ Table1
 ```
 <span style="color: blue;">**RESOURCE:**</span> Explore [DT: An R interface to the DataTables library](https://rstudio.github.io/DT/) for more ways to customize your DT tables.
 
-### Map of alien abductions
-
+### Map of alien abductions (`leaflet`)
 ```{r}
 ##############################
 # wrangle data (get latitude, longitude, comment information for all comments mentioning "abduction")
 ##############################
 
-leaflet_abduction_data <- UFO_data %>% 
+leaflet_abduction_data <- UFO_data_cleaned %>% 
   filter(str_detect(comments, "(?i)abduction")) %>% 
   mutate(latitude = as.numeric(latitude), # leaflet requires lat/long to be numeric values
          longitude = as.numeric(longitude))
