@@ -1,6 +1,6 @@
 ---
 title: "publish a knitted R Markdown as a GitHub Page"
-author: "*Compiled on `r date()` by Sam Csik & Juliette Verstaen*"
+author: "Compiled on `r date()` by Sam Csik & Juliette Verstaen"
 output: 
   html_document:
     toc: true

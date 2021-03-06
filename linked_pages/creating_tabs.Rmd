@@ -1,6 +1,6 @@
 ---
 title: "creating tabs"
-author: "*Compiled on `r date()` by Sam Csik & Juliette Verstaen*"
+author: "Compiled on `r date()` by Sam Csik & Juliette Verstaen"
 output: 
   html_document:
     theme: spacelab
