@@ -2,7 +2,6 @@
 title: "A *very* important report on global UFO sightings and abductions"
 subtitle: "*(But mainly a lesson on using R Markdown and GitHub Pages to share your work)*"
 author: "*Compiled on `r date()` by Sam Csik & Juliette Verstaen`*"
-date: "March 2020"
 output:
   html_document:
     code_folding: hide

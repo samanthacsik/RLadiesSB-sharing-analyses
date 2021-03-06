@@ -1,7 +1,6 @@
 ---
 title: "code chunks"
-author: "Sam Csik & Juliette Verstaen"
-date: "March 2021"
+author: "*Compiled on `r date()` by Sam Csik & Juliette Verstaen*"
 output: 
   html_document:
     theme: spacelab
