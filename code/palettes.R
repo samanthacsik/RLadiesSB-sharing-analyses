@@ -1,7 +1,5 @@
 ## Color palettes 
 
-## Galaxy Quest
-## Never give up. Never surrender.
 library(RColorBrewer)
 library(colorspace)
 library(scales)
@@ -34,6 +32,7 @@ alien_palettes <- list(
   
 
 )
+
 
 # name a cal_palette function, where there are 3 argument names: name, n, and type
 alien_palette <- function(name, n, type = c("discrete", "continuous")) {
