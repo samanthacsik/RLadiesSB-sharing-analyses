@@ -1,5 +1,5 @@
 ---
-title: "publish a knitted RMarkdown as a GitHub Page"
+title: "publish a knitted R Markdown as a GitHub Page"
 author: "Sam Csik & Juliette Verstaen"
 date: "March 2021"
 output: 
@@ -12,6 +12,10 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+<br> 
+
+#### You can use GitHub Pages to host a personal website (one per account) or project sites (unlimited). Here, we'll walk through the steps for setting up a *project* site to showcase your work.
 
  <br>
  
