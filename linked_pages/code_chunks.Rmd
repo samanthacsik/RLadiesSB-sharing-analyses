@@ -11,3 +11,10 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+<br> 
+
+Code chunks allow you execute code and embed the results within your R Markdown document.
+
+<br>
+
+<span style="color: blue;">**Resources**:</span> Check out [knitr: Elegant, flexible, and fast dynamic report generation with R](https://yihui.org/knitr/options/) by *Yihui Xie* for an nice overview of code chunk options.

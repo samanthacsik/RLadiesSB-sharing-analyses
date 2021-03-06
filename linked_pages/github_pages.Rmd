@@ -180,7 +180,7 @@ When the banner surrounding your GitHub Page URL turns green (refreshing your pa
 knitr::include_graphics("../media/gh_page_screenshots/05.5_published.png")
 ```
 
-If your URL still doesn't want to resolve, adding `index` after the backslash of your URL sometimes helps to expedite the process. Regardless, patience is often key and your web page will be up and running soon!
+<span style="color: green;">**TIP**</span>: If your URL still doesn't want to resolve, adding `index` after the backslash of your URL sometimes helps to expedite the process. Regardless, patience is often key and your web page will be up and running soon!
 ```{r Step_05.6, echo = FALSE, fig.cap = "", out.width = '100%'}
 knitr::include_graphics("../media/gh_page_screenshots/05.6_backslash.png")
 ```

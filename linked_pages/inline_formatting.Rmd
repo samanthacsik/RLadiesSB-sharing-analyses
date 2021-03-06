@@ -1,7 +1,7 @@
 ---
 title: "in-line formatting"
-author: "Sam Csik"
-date: "3/4/2021"
+author: "Sam Csik & Juliette Verstaen"
+date: "March 2021"
 output: html_document
 ---
 
@@ -9,3 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Adding extra space 
+```{markdown}
+<br>
+```

@@ -1,5 +1,6 @@
 ---
 title: "A *very* important report on global UFO sightings and abductions"
+subtitle: "*(But mainly a lesson on using R Markdown and GitHub Pages to share your work)*"
 author: "Sam Csik & Juliette Verstaen"
 date: "March 2020"
 output:
@@ -20,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 These materials were developed by Sam Csik & Juliette Verstaen using UFO Sighting Data from the National UFO Reporting  Center (NUFORC). Data can be downloaded from [kaggle](https://www.kaggle.com/NUFORC/ufo-sightings). Source code can be found on [GitHub](https://github.com/samanthacsik/RLadiesSB-github-pages).
 
-In this example report, we demonstrate how to use a variety of different `HTML widgets` that allow for interactive web visualizations, as well as how to leverage [RMarkdown](https://rmarkdown.rstudio.com/) and [GitHub Pages](https://pages.github.com/) for building web pages to display reports (or whatever else you might dream of creating with RMarkdown). 
+In this example report, we demonstrate how to use a variety of different `HTML widgets` that allow for interactive web visualizations, as well as how to leverage [R Markdown](https://rmarkdown.rstudio.com/lesson-1.html) and [GitHub Pages](https://pages.github.com/) for building web pages to display reports (or whatever else you might dream of creating with RMarkdown). 
 
 Expand hidden `Code` chunks to see how we've created the following tables, maps, and plots. Also, be on the lookout for <span style="color: green;">**TIP**</span>s and <span style="color: blue;">**RESOURCE**</span>s throughout for pointers and links to resources!
 
@@ -42,7 +43,7 @@ And finally, before we get started, the [R Markdown Cookbook](https://bookdown.o
 ## for cleaning and wrangling
 library(tidyverse)
 library(janitor)
-library(lubridate) # may not end up using this one, but keeping for now
+library(lubridate) 
 
 ## for map making and general spatial work
 library(leaflet)
@@ -147,7 +148,9 @@ abduction_map
 
 ## Resources
 
+* The [R Markdown Reference Guide](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) is a great cheat sheet for Markdown syntax and knitr chunk options
 * For a list of awesome interactive **`htmlwidgets`** for R see [here](https://www.htmlwidgets.org/showcase_leaflet.html). Find even more options in the [htmlwidgets gallery](http://gallery.htmlwidgets.org/).
+* [A Guide to GitHub Pages](https://www.thinkful.com/learn/a-guide-to-using-github-pages/). This is a cool choose-your-own-adventure-style resource if you’re comfortable in the command line.
 
 
 
