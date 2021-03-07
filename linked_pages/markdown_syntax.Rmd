@@ -1,0 +1,24 @@
+---
+title: "markdown syntax"
+author: "Compiled on `r date()` by Sam Csik & Juliette Verstaen"
+output: 
+  html_document:
+    theme: spacelab
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br> 
+
+You are able to format text in `.Rmd` files using [Pandoc's Markdown](https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html), a set of markdown annotations for plain text files. When you render (i.e. 'knit') your file, Pandoc transforms your marked up text into beautiful, report-worthy formatted text.
+
+There are so many great online resources for learning the markdown syntax used throughout this tutorial, so rather than copying content, we'll link a few here:
+
+<br>
+
+* [R Markdown Reference Guide, Page 1](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+* [R Markdown Basics](https://rmarkdown.rstudio.com/authoring_basics.html)
+* [R Markdown: The Definitive Guide, Chapter 2.5](https://bookdown.org/yihui/rmarkdown/markdown-syntax.html)
+

@@ -16,23 +16,27 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+<br> 
+
 ## About and Credits
 
-These materials were developed by Sam Csik & Juliette Verstaen using UFO Sighting Data from the National UFO Reporting  Center (NUFORC). Data can be downloaded from [kaggle](https://www.kaggle.com/NUFORC/ufo-sightings). Source code can be found on [GitHub](https://github.com/samanthacsik/RLadiesSB-github-pages).
+These materials were developed by Sam Csik & Juliette Verstaen using UFO Sighting Data from the National UFO Reporting Center (NUFORC). Data can be downloaded from [kaggle](https://www.kaggle.com/NUFORC/ufo-sightings). Source code can be found on [GitHub](https://github.com/samanthacsik/RLadiesSB-github-pages).
 
-In this example report, we demonstrate how to use a variety of different `HTML widgets` that allow for interactive web visualizations, as well as how to leverage [R Markdown](https://rmarkdown.rstudio.com/lesson-1.html) and [GitHub Pages](https://pages.github.com/) for building web pages to display reports (or whatever else you might dream of creating with RMarkdown). 
+In this example report, we demonstrate how to use a variety of different `HTML widgets` that allow for interactive web visualizations, as well as how to leverage [R Markdown](https://rmarkdown.rstudio.com/lesson-1.html) and [GitHub Pages](https://pages.github.com/) for building web pages to display reports (or whatever else you might dream of creating with RMarkdown).
 
-Expand hidden `Code` chunks to see how we've created the following tables, maps, and plots. Also, be on the lookout for <span style="color: green;">**TIP**</span>s and <span style="color: blue;">**RESOURCE**</span>s throughout for pointers and links to resources!
+Expand hidden `Code` chunks to see how we've created the following tables, maps, and plots. Also, be on the lookout for [**TIP**]{style="color: green;"}s and [**RESOURCE**]{style="color: blue;"}s throughout for pointers and links to resources!
 
-And finally, before we get started, the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) by *Yihui Xie, Christophe Dervieux, & Emily Riederer* and [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) by *Yihui Xie, J. J. Allaire, & Garrett Grolemund* contain **tons** of incredible information and answers to nearly all of the RMarkdown-related questions we have encountered. We recommend coming back to these to learn more about all-things RMarkdown.
+And finally, before we get started, the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) by *Yihui Xie, Christophe Dervieux, & Emily Riederer* and [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) by *Yihui Xie, J. J. Allaire, & Garrett Grolemund* contain **tons** of incredible information and answers to nearly all of the R Markdown-related questions we have encountered. We recommend coming back to these to learn more about all-things R Markdown.
+
+<br> 
 
 ## Setting up your RMarkdown file
 
-* [customizing the YAML](linked_pages/yaml.html)
-* [a note on code chunks](linked_pages/code_chunks.html)
-* [in-line formatting](linked_pages/inline_formatting.html)
-* [creating tabs](linked_pages/creating_tabs.html) 
-* [publishing your .Rmd as a GitHub Page](linked_pages/github_pages.html)
+-   [customizing the YAML](linked_pages/yaml.html)
+-   [a note on code chunks](linked_pages/code_chunks.html)
+-   [markdown syntax](linked_pages/markdown_syntax.html)
+-   [creating tabs](linked_pages/creating_tabs.html)
+-   [publishing your .Rmd as a GitHub Page](linked_pages/github_pages.html)
 
 ```{r, warning = FALSE, message = FALSE, results = 'hide', echo = FALSE}
 ###########################
@@ -62,84 +66,117 @@ library(RColorBrewer)
 library(colorspace)
 library(scales)
 
+##############################
+# source custom alien color palette
+##############################
+
+source(here::here("code", "palettes.R"))
+
 ###########################
 # load data
 ###########################
 
-UFO_data <- read_csv(here::here("data", "UFO_complete.csv"))
+UFO_data_all <- read_csv(here::here("data", "UFO_complete.csv"))
+
+UFO_data_cleaned <- UFO_data_all %>% 
+  filter(!is.na(city))
 ```
+
+<br>
 
 ## Alien Encounters {.tabset}
 
-### Timeseries
+### Timeseries (`dygraph`)
 ```{r}
-source(here::here("code/palettes.R"))
+
+##############################
+# get colors from our custom alien palette
+##############################
+
 colors <- alien_palette("galaxy_quest", 8, "discrete")
 
-# create time series object
+##############################
+# wrangle data
+##############################
 
-UFO_dygraph <- UFO_data %>% 
-  clean_names() %>% 
-  select(-date_posted) %>% 
-  separate(datetime, c("month", "second", "third"), sep = "/") %>% 
-  separate(third, c("year", "time"), sep = " ") %>% 
+UFO_dygraph <- UFO_data_cleaned %>%
+  clean_names() %>%
+  select(-date_posted) %>%
+  separate(datetime, c("month", "second", "third"), sep = "/") %>%
+  separate(third, c("year", "time"), sep = " ") %>%
   group_by(year) %>%
-  count() %>% 
-  rename(number_instances = n) %>% 
-  filter(!is.na(year)) %>% 
-  mutate(date_seen = paste("01/01/", year, sep = "")) %>% 
+  count() %>%
+  rename(number_instances = n) %>%
+  filter(!is.na(year)) %>%
+  mutate(date_seen = paste("01/01/", year, sep = "")) %>%
   mutate(date_seen = as.character(date_seen),
          date_seen = as.Date(date_seen, format = "%m/%d/%Y"))
-         
+
+##############################
+# create time series object
+##############################
+
 ufo_timeseries <- xts(x = UFO_dygraph$number_instances,
                               order.by = UFO_dygraph$date_seen)
 
+##############################
 # Finally the plot
+##############################
+
 dy_plot <- dygraph(ufo_timeseries, main = "Aliens from Earth")%>%
-  dyRangeSelector() %>% 
+  dyRangeSelector() %>%
   dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors= colors[1]) %>%
-  dyCrosshair(direction = "vertical") %>% 
-  dyHighlight(highlightCircleSize = 5, highlightSeriesBackgroundAlpha = 0.2, hideOnMouseOut = FALSE) %>% 
-  dyRoller(rollPeriod = 1) %>% 
+  dyCrosshair(direction = "vertical") %>%
+  dyHighlight(highlightCircleSize = 5, highlightSeriesBackgroundAlpha = 0.2, hideOnMouseOut = FALSE) %>%
+  dyRoller(rollPeriod = 1) %>%
   dyAxis("y", label = "Number of sightings, abductions, etc")
+
+##############################
+# display plot in knitted doc
+##############################
 
 dy_plot
 
 ```
 
+<br> 
+
 ### other tab here
+
+<br>
 
 ### maybe another tab here
 
+<br>
+
 ## Alien Abductions {.tabset}
 
-### All accounts of abuctions 
+### All accounts of abductions (`DT`)
 
 ```{r, warning = FALSE, message = FALSE}
 ##############################
 # clean up UFO_data to display in an interactive table
 ##############################
 
-Table1_abduction_data <- UFO_data %>% 
+Table1_abduction_data <- UFO_data_cleaned %>% 
   clean_names() %>% 
-  #mutate(as_datetime(datetime)) %>% 
   filter(str_detect(comments, "(?i)abduction")) %>% 
-  select(datetime, date_posted, country, state, city, duration_seconds, shape, comments) %>% 
-  arrange(datetime)
+  select(datetime, date_posted, country, state, city, duration_seconds, shape, comments)
 
 ##############################
 # generate an interactive table (using the `DT` package) 
 ##############################
 
-Table1 <- datatable(Table1_abduction_data,
-                    class = 'cell-border stripe',
-                    colnames = c("Date/Time (of encounter)", "Date Reported", 
+Table1 <- datatable(Table1_abduction_data, # your data frame
+                    class = 'cell-border stripe', 
+                    colnames = c("Date/Time (of encounter)", "Date Reported", # rename column names
                                  "Country", "State", "City", "Duration of Encounter (sec)", 
                                  "Shape of UFO", "Comments"),
-                    caption = htmltools::tags$caption(
-                      style = 'caption-side: top; text-align: left;', 
-                      htmltools::em('Table 1: Global accounts of alien abductions from 1910-2013.')),
-                    filter = 'top', options = list(pageLength = 5, autoWidth = TRUE))
+                    caption = htmltools::tags$caption( # add a caption
+                      style = 'caption-side: top; text-align: left;', # set location/alignment of caption text
+                      htmltools::em('Table 1: Global accounts of alien abductions from 1910-2013.')), # write caption
+                    filter = 'top', 
+                    options = list(pageLength = 5, autoWidth = TRUE)) # set number of viewable rows
 
 ##############################
 # display table in knitted doc
@@ -147,16 +184,19 @@ Table1 <- datatable(Table1_abduction_data,
 
 Table1
 ```
-<span style="color: blue;">**RESOURCE:**</span> Explore [DT: An R interface to the DataTables library](https://rstudio.github.io/DT/) for more ways to customize your DT tables.
 
-### Map of alien abductions
+[**RESOURCE:**]{style="color: blue;"} Explore [DT: An R interface to the DataTables library](https://rstudio.github.io/DT/) for more ways to customize your DT tables.
+
+<br>
+
+### Map of alien abductions (`leaflet`)
 
 ```{r}
 ##############################
 # wrangle data (get latitude, longitude, comment information for all comments mentioning "abduction")
 ##############################
 
-leaflet_abduction_data <- UFO_data %>% 
+leaflet_abduction_data <- UFO_data_cleaned %>% 
   filter(str_detect(comments, "(?i)abduction")) %>% 
   mutate(latitude = as.numeric(latitude), # leaflet requires lat/long to be numeric values
          longitude = as.numeric(longitude))
@@ -185,13 +225,14 @@ abduction_map <- leaflet(leaflet_abduction_data) %>%
 abduction_map
 ```
 
-<span style="color: blue;">**RESOURCE:**</span> Explore [Leaflet for R](https://rstudio.github.io/leaflet/) for more ways to customize your Leaflet maps.
+[**RESOURCE:**]{style="color: blue;"} Explore [Leaflet for R](https://rstudio.github.io/leaflet/) for more ways to customize your Leaflet maps.  
 
-## Resources
-
-* The [R Markdown Reference Guide](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) is a great cheat sheet for Markdown syntax and knitr chunk options
-* For a list of awesome interactive **`htmlwidgets`** for R see [here](https://www.htmlwidgets.org/showcase_leaflet.html). Find even more options in the [htmlwidgets gallery](http://gallery.htmlwidgets.org/).
-* [A Guide to GitHub Pages](https://www.thinkful.com/learn/a-guide-to-using-github-pages/). This is a cool choose-your-own-adventure-style resource if you’re comfortable in the command line.
+<br>
 
 
+## Additional Resources
 
+-   The [R Markdown Reference Guide](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) is a great cheat sheet for Markdown syntax and knitr chunk options
+-   [R Markdown Cheat Sheet](https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf) (also find more cheatsheets for all things R/RStudio by clicking Help > Cheatsheets)
+-   For a list of awesome interactive **`htmlwidgets`** for R see [here](https://www.htmlwidgets.org/showcase_leaflet.html). Find even more options in the [htmlwidgets gallery](http://gallery.htmlwidgets.org/).
+-   [A Guide to GitHub Pages](https://www.thinkful.com/learn/a-guide-to-using-github-pages/). This is a cool choose-your-own-adventure-style resource if you're comfortable in the command line.
