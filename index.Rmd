@@ -87,7 +87,7 @@ UFO_data_cleaned <- UFO_data_all %>%
 ## Alien Encounters {.tabset}
 
 ### Timeseries (`dygraph`)
-```{r}
+```{r,  warning = FALSE, message = FALSE}
 
 ##############################
 # get colors from our custom alien palette
@@ -143,7 +143,7 @@ dy_plot
 
 ### Mapping duration (`mapview`)
 
-```{r}
+```{r,  warning = FALSE, message = FALSE}
 ## clean data
 UFO_time <- UFO_data %>% 
   clean_names() %>% 
@@ -175,7 +175,7 @@ UFO_map_mv
 
 ### Spaceship shapes (`gt`)
 
-```{r}
+```{r,  warning = FALSE, message = FALSE}
 colors_table <- alien_palette("galaxy_quest", 8, "discrete")
 
 ## wrangle data
