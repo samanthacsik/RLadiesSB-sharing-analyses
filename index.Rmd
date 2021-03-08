@@ -183,7 +183,7 @@ UFO_spatial <-  st_as_sf(UFO_time, coords = c("longitude", "latitude"),
            crs = 4326)
 
 ##############################
-## create the map!
+# create the map!
 ##############################
 
 UFO_map_mv <- mapview(UFO_spatial, zcol = "duration_length", cex = "number_instances", alpha = 0.2)
