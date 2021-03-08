@@ -139,36 +139,51 @@ dy_plot
 
 ```
 
+[**RESOURCE:**]{style="color: blue;"} For more information and tips on creating dygraphs, check out [dygraphs for R](https://www.htmlwidgets.org/showcase_leaflet.html).
+
 <br> 
 
 ### Mapping duration (`mapview`)
 
 ```{r,  warning = FALSE, message = FALSE}
-## clean data
-UFO_time <- UFO_data %>% 
-  clean_names() %>% 
-  select(-date_posted) %>% 
-  mutate(longitude = as.numeric(longitude),
-         latitude = as.numeric(latitude)) %>% 
-  mutate(duration_length = case_when(duration_seconds <= 60 ~ "short",
-                                     duration_seconds >= 360 ~ "long",
-                                     T ~ "medium")) %>% 
-  filter(!is.na(longitude),
-         !is.na(latitude)) %>% 
-  group_by(duration_length, longitude, latitude) %>% 
-  count() %>% 
-  rename(number_instances = n) 
-
-## need to convert to a spatial feature object
-UFO_spatial <-  st_as_sf(UFO_time, coords = c("longitude", "latitude"), 
-           crs = 4326) 
-
-## create the map!
-UFO_map_mv <- mapview(UFO_spatial, zcol = "duration_length", cex = "number_instances", alpha = 0.2)
-
-UFO_map_mv
-
+# ##############################
+# ## clean data
+# ##############################
+# 
+# UFO_time <- UFO_data_cleaned %>%
+#   clean_names() %>%
+#   select(-date_posted) %>%
+#   mutate(longitude = as.numeric(longitude),
+#          latitude = as.numeric(latitude)) %>%
+#   mutate(duration_length = case_when(duration_seconds <= 60 ~ "short",
+#                                      duration_seconds >= 360 ~ "long",
+#                                      T ~ "medium")) %>%
+#   filter(!is.na(longitude),
+#          !is.na(latitude)) %>%
+#   group_by(duration_length, longitude, latitude) %>%
+#   count() %>%
+#   rename(number_instances = n)
+# 
+# ##############################
+# ## need to convert to a spatial feature object
+# ##############################
+# 
+# UFO_spatial <-  st_as_sf(UFO_time, coords = c("longitude", "latitude"),
+#            crs = 4326)
+# 
+# ##############################
+# ## create the map!
+# ##############################
+# 
+# UFO_map_mv <- mapview(UFO_spatial, zcol = "duration_length", cex = "number_instances", alpha = 0.2)
+# 
+# ##############################
+# # display map in knitted doc
+# ##############################
+# 
+# UFO_map_mv
 ```
+
 [**RESOURCE:**]{style="color: blue;"} Explore Jamie Montgomery's [mapview and mapedit tutorial from SB Eco-Data Science](https://github.com/jamiecmontgomery/mapview-mapedit) for more mapview fun.
 
 <br>
@@ -176,53 +191,68 @@ UFO_map_mv
 ### Spaceship shapes (`gt`)
 
 ```{r,  warning = FALSE, message = FALSE}
+
+##############################
+# get colors from our custom alien palette
+##############################
+
 colors_table <- alien_palette("galaxy_quest", 8, "discrete")
 
+##############################
 ## wrangle data
+##############################
 
 ## get shape count
-UFO_shape_count <- UFO_data %>% 
-  clean_names() %>% 
-  select(-date_posted) %>% 
+UFO_shape_count <- UFO_data_cleaned %>%
+  clean_names() %>%
+  select(-date_posted) %>%
   mutate(longitude = as.numeric(longitude),
-         latitude = as.numeric(latitude)) %>% 
-  group_by(shape) %>% 
-  count() %>% 
-  rename(number_instances = n) %>% 
+         latitude = as.numeric(latitude)) %>%
+  group_by(shape) %>%
+  count() %>%
+  rename(number_instances = n) %>%
   filter(!is.na(shape)) ## There are 28 unique shapes
 
+##############################
 ## get total time by shape
-UFO_shape_times <- UFO_data %>% 
-  clean_names() %>% 
-  select(-date_posted) %>% 
+##############################
+
+UFO_shape_times <- UFO_data_cleaned %>%
+  clean_names() %>%
+  select(-date_posted) %>%
   mutate(longitude = as.numeric(longitude),
-         latitude = as.numeric(latitude)) %>% 
-  group_by(shape) %>% 
-  dplyr::summarise(total_seconds = sum(duration_seconds, na.rm = TRUE)) %>% 
+         latitude = as.numeric(latitude)) %>%
+  group_by(shape) %>%
+  dplyr::summarise(total_seconds = sum(duration_seconds, na.rm = TRUE)) %>%
   filter(!is.na(shape))
 
+##############################
 ## combine
-UFO_shape <- left_join(UFO_shape_count, UFO_shape_times) %>% 
-  mutate(shape_rate_seconds = total_seconds/number_instances) %>% 
+##############################
+UFO_shape <- left_join(UFO_shape_count, UFO_shape_times) %>%
+  mutate(shape_rate_seconds = total_seconds/number_instances) %>%
   mutate(Hours = hour(seconds_to_period(shape_rate_seconds)),
          Minutes = minute(seconds_to_period(shape_rate_seconds)),
-         Seconds = round(second(seconds_to_period(shape_rate_seconds)), digits = 0)) %>% 
-  unite(shape_rate, c("Hours", "Minutes", "Seconds"), sep = ":") %>% 
+         Seconds = round(second(seconds_to_period(shape_rate_seconds)), digits = 0)) %>%
+  unite(shape_rate, c("Hours", "Minutes", "Seconds"), sep = ":") %>%
   ungroup()
 
+##############################
 ## make the table
-UFO_shape_table %>% 
-  dplyr::arrange(desc(shape_rate_seconds)) %>% 
-  select(-shape_rate_seconds) %>% 
-  gt() %>% 
-  tab_header(title = "Alien Spaceship Shapes & Time in the Air") %>% 
-  cols_label(shape = "Shape", 
+##############################
+
+UFO_shape_table <- UFO_shape %>%
+  dplyr::arrange(desc(shape_rate_seconds)) %>%
+  select(-shape_rate_seconds) %>%
+  gt() %>%
+  tab_header(title = "Alien Spaceship Shapes & Time in the Air") %>%
+  cols_label(shape = "Shape",
              number_instances = "Number Sightings",
              total_seconds = "Total Seconds Observed",
-             shape_rate = "Time per each Sighting")  %>% 
+             shape_rate = "Time per each Sighting")  %>%
   cols_align("center") %>%
   tab_options(
-    table.background.color = colors[1]) %>% 
+    table.background.color = colors[1]) %>%
   tab_style(
     style = list(
       cell_fill(color = colors[6]),
@@ -231,11 +261,14 @@ UFO_shape_table %>%
     locations = cells_title(groups = "title")
   )
 
+##############################
+# display table in knitted doc
+##############################
 
 UFO_shape_table
 ```
-[**RESOURCE:**]{style="color: blue;"} Explore Juliette Verstaen's [`gt` R-Ladies workshop](https://github.com/j-verstaen/gt_workshop_SB_R_Ladies) for more table fun.
 
+[**RESOURCE:**]{style="color: blue;"} Explore Juliette Verstaen's [`gt` R-Ladies workshop](https://github.com/j-verstaen/gt_workshop_SB_R_Ladies) for more table fun.
 
 <br>
 
@@ -248,7 +281,7 @@ UFO_shape_table
 # clean up UFO_data to display in an interactive table
 ##############################
 
-Table1_abduction_data <- UFO_data_cleaned %>% 
+Table2_abduction_data <- UFO_data_cleaned %>% 
   clean_names() %>% 
   filter(str_detect(comments, "(?i)abduction")) %>% 
   select(datetime, date_posted, country, state, city, duration_seconds, shape, comments)
@@ -257,7 +290,7 @@ Table1_abduction_data <- UFO_data_cleaned %>%
 # generate an interactive table (using the `DT` package) 
 ##############################
 
-Table1 <- datatable(Table1_abduction_data, # your data frame
+Table2 <- datatable(Table2_abduction_data, # your data frame
                     class = 'cell-border stripe', 
                     colnames = c("Date/Time (of encounter)", "Date Reported", # rename column names
                                  "Country", "State", "City", "Duration of Encounter (sec)", 
@@ -272,7 +305,7 @@ Table1 <- datatable(Table1_abduction_data, # your data frame
 # display table in knitted doc
 ##############################
 
-Table1
+Table2
 ```
 
 [**RESOURCE:**]{style="color: blue;"} Explore [DT: An R interface to the DataTables library](https://rstudio.github.io/DT/) for more ways to customize your DT tables.
