@@ -12,6 +12,7 @@ If you would like to run this code, please be sure to have the following package
 ## for cleaning and wrangling
 install.packages("tidyverse")
 install.packages("janitor")
+install.packages("lubridate")
 
 ## for map making and general spatial work
 install.packages(leaflet)

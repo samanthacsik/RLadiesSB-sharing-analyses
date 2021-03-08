@@ -1,10 +1,6 @@
 # mapview UFO map
 
-# other type of map
-
-
-### write more documentation and annotations and edit
-
+## clean data
 UFO_time <- UFO_data %>% 
   clean_names() %>% 
   select(-date_posted) %>% 
@@ -18,11 +14,11 @@ UFO_time <- UFO_data %>%
   group_by(duration_length, longitude, latitude) %>% 
   count() %>% 
   rename(number_instances = n) 
- # mutate(duration_length = factor(duration_length), levels = c("short", "medium", "long"))
 
-UFO_test <-  st_as_sf(UFO_time, coords = c("longitude", "latitude"), 
+## need to convert to a spatial feature object
+UFO_spatial <-  st_as_sf(UFO_time, coords = c("longitude", "latitude"), 
            crs = 4326) 
 
-
-mapview(UFO_test, zcol = "duration_length", cex = "number_instances", alpha = 0.2)
+## create the map!
+UFO_map_mv <- mapview(UFO_spatial, zcol = "duration_length", cex = "number_instances", alpha = 0.2)
 

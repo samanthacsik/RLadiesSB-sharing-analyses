@@ -1,11 +1,11 @@
 ## {gt} table
-## more info here
 ## Juliette Verstaen
 ## 2/27/21
 
 library(lubridate)
 library(here)
 
+## get shape count
 UFO_shape_count <- UFO_data %>% 
   clean_names() %>% 
   select(-date_posted) %>% 
@@ -14,10 +14,9 @@ UFO_shape_count <- UFO_data %>%
   group_by(shape) %>% 
   count() %>% 
   rename(number_instances = n) %>% 
-  filter(!is.na(shape))
+  filter(!is.na(shape)) ## There are 28 unique shapes
 
-## There are 28 unique shapes
-
+## get total time by shape
 UFO_shape_times <- UFO_data %>% 
   clean_names() %>% 
   select(-date_posted) %>% 

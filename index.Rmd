@@ -141,11 +141,101 @@ dy_plot
 
 <br> 
 
-### other tab here
+### Mapping duration (`mapview`)
+
+```{r}
+## clean data
+UFO_time <- UFO_data %>% 
+  clean_names() %>% 
+  select(-date_posted) %>% 
+  mutate(longitude = as.numeric(longitude),
+         latitude = as.numeric(latitude)) %>% 
+  mutate(duration_length = case_when(duration_seconds <= 60 ~ "short",
+                                     duration_seconds >= 360 ~ "long",
+                                     T ~ "medium")) %>% 
+  filter(!is.na(longitude),
+         !is.na(latitude)) %>% 
+  group_by(duration_length, longitude, latitude) %>% 
+  count() %>% 
+  rename(number_instances = n) 
+
+## need to convert to a spatial feature object
+UFO_spatial <-  st_as_sf(UFO_time, coords = c("longitude", "latitude"), 
+           crs = 4326) 
+
+## create the map!
+UFO_map_mv <- mapview(UFO_spatial, zcol = "duration_length", cex = "number_instances", alpha = 0.2)
+
+UFO_map_mv
+
+```
+[**RESOURCE:**]{style="color: blue;"} Explore Jamie Montgomery's [mapview and mapedit tutorial from SB Eco-Data Science](https://github.com/jamiecmontgomery/mapview-mapedit) for more mapview fun.
 
 <br>
 
-### maybe another tab here
+### Spaceship shapes (`gt`)
+
+```{r}
+colors_table <- alien_palette("galaxy_quest", 8, "discrete")
+
+## wrangle data
+
+## get shape count
+UFO_shape_count <- UFO_data %>% 
+  clean_names() %>% 
+  select(-date_posted) %>% 
+  mutate(longitude = as.numeric(longitude),
+         latitude = as.numeric(latitude)) %>% 
+  group_by(shape) %>% 
+  count() %>% 
+  rename(number_instances = n) %>% 
+  filter(!is.na(shape)) ## There are 28 unique shapes
+
+## get total time by shape
+UFO_shape_times <- UFO_data %>% 
+  clean_names() %>% 
+  select(-date_posted) %>% 
+  mutate(longitude = as.numeric(longitude),
+         latitude = as.numeric(latitude)) %>% 
+  group_by(shape) %>% 
+  dplyr::summarise(total_seconds = sum(duration_seconds, na.rm = TRUE)) %>% 
+  filter(!is.na(shape))
+
+## combine
+UFO_shape <- left_join(UFO_shape_count, UFO_shape_times) %>% 
+  mutate(shape_rate_seconds = total_seconds/number_instances) %>% 
+  mutate(Hours = hour(seconds_to_period(shape_rate_seconds)),
+         Minutes = minute(seconds_to_period(shape_rate_seconds)),
+         Seconds = round(second(seconds_to_period(shape_rate_seconds)), digits = 0)) %>% 
+  unite(shape_rate, c("Hours", "Minutes", "Seconds"), sep = ":") %>% 
+  ungroup()
+
+## make the table
+UFO_shape_table %>% 
+  dplyr::arrange(desc(shape_rate_seconds)) %>% 
+  select(-shape_rate_seconds) %>% 
+  gt() %>% 
+  tab_header(title = "Alien Spaceship Shapes & Time in the Air") %>% 
+  cols_label(shape = "Shape", 
+             number_instances = "Number Sightings",
+             total_seconds = "Total Seconds Observed",
+             shape_rate = "Time per each Sighting")  %>% 
+  cols_align("center") %>%
+  tab_options(
+    table.background.color = colors[1]) %>% 
+  tab_style(
+    style = list(
+      cell_fill(color = colors[6]),
+      cell_text(weight = "bold", color = colors[1])
+    ),
+    locations = cells_title(groups = "title")
+  )
+
+
+UFO_shape_table
+```
+[**RESOURCE:**]{style="color: blue;"} Explore Juliette Verstaen's [`gt` R-Ladies workshop](https://github.com/j-verstaen/gt_workshop_SB_R_Ladies) for more table fun.
+
 
 <br>
 
@@ -236,3 +326,4 @@ abduction_map
 -   [R Markdown Cheat Sheet](https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf) (also find more cheatsheets for all things R/RStudio by clicking Help > Cheatsheets)
 -   For a list of awesome interactive **`htmlwidgets`** for R see [here](https://www.htmlwidgets.org/showcase_leaflet.html). Find even more options in the [htmlwidgets gallery](http://gallery.htmlwidgets.org/).
 -   [A Guide to GitHub Pages](https://www.thinkful.com/learn/a-guide-to-using-github-pages/). This is a cool choose-your-own-adventure-style resource if you're comfortable in the command line.
+- For creating your own palette, I use the ColorPick Eyedropper extension (for [Chrome](https://chrome.google.com/webstore/detail/colorpick-eyedropper/ohcpnigalekghcmgcdcenkpelffpdolg?hl=en), for [Firefox](https://addons.mozilla.org/en-US/firefox/addon/colorpick-eyedropper/), but any color picking tool will work)

@@ -39,7 +39,6 @@ alien_palette <- function(name, n, type = c("discrete", "continuous")) {
   
   ## name = "et"
   
-  
   # designate type as matching either argument in c("discrete", "continuous")
   type <- match.arg(type)
   
