@@ -5,8 +5,10 @@ This content was presented at [SCCWRP](https://www.sccwrp.org/)'s March 2021 Tid
 Explore our teaching materials [here](https://samanthacsik.github.io/RLadiesSB-sharing-analyses/)!
 
 ## Files
-* `index.Rmd`
-* `index.html`
+* `index.Rmd`: contains all notes, tutorial information, and example code used in our GitHup Page
+* `index.html`: file used to produce our GitHub Page
+* `code/palettes.R`: custom alien/UFO-themed color palette
+* `linked_pages/*`: knitted documents linked in `index.html`
 
 ## Data
 **`data/UFO_complete.csv`**: (data source: https://www.kaggle.com/NUFORC/ufo-sightings)
