@@ -327,7 +327,7 @@ Table2
 
 ```{r}
 ##############################
-# wrangle data (get latitude, longitude, comment information for all comments mentioning "abduction")
+# wrangle data (get latitude, longitude, and all comments mentioning the word "abduction")
 ##############################
 
 leaflet_abduction_data <- UFO_data_cleaned %>% 
