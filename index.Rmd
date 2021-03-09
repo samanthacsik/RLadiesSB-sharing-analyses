@@ -38,33 +38,36 @@ And finally, before we get started, the [R Markdown Cookbook](https://bookdown.o
 -   [creating tabs](linked_pages/creating_tabs.html)
 -   [publishing your .Rmd as a GitHub Page](linked_pages/github_pages.html)
 
-```{r, warning = FALSE, message = FALSE, results = 'hide', echo = FALSE}
+```{r, warning = FALSE, message = FALSE, results = 'hide'}
 ###########################
 # load packages
 ###########################
 
-## for cleaning and wrangling
+# for cleaning and wrangling
 library(tidyverse)
 library(janitor)
 library(lubridate) 
 
-## for map making and general spatial work
+# for map making and general spatial work
 library(leaflet)
 library(mapview)
 library(sf)
 
-## for working with time series data
+# for working with time series data
 library(dygraphs)
 library(xts)
 
-## for making tables
+# for making tables
 library(DT)
 library(gt)
 
-## for palette making
+# for palette making
 library(RColorBrewer)
 library(colorspace)
 library(scales)
+
+# for reproducibility
+library(here)
 
 ##############################
 # source custom alien color palette
@@ -78,8 +81,17 @@ source(here::here("code", "palettes.R"))
 
 UFO_data_all <- read_csv(here::here("data", "UFO_complete.csv"))
 
+###########################
+# bunch of parsing failures from columns that are shifted; we're going to just filter those out bc they don't have appropriate lat/long data
+###########################
+
+# see parsing failures here
+UFO_parsing_failures <- UFO_data_all %>% 
+  filter(is.na(city))
+
+# remove those from the dataset
 UFO_data_cleaned <- UFO_data_all %>% 
-  filter(!is.na(city))
+ filter(!is.na(city))
 ```
 
 <br>
@@ -88,7 +100,6 @@ UFO_data_cleaned <- UFO_data_all %>%
 
 ### Timeseries (`dygraph`)
 ```{r,  warning = FALSE, message = FALSE}
-
 ##############################
 # get colors from our custom alien palette
 ##############################
@@ -121,7 +132,7 @@ ufo_timeseries <- xts(x = UFO_dygraph$number_instances,
                               order.by = UFO_dygraph$date_seen)
 
 ##############################
-# Finally the plot
+# finally create the plot
 ##############################
 
 dy_plot <- dygraph(ufo_timeseries, main = "Aliens from Earth") %>%
@@ -148,7 +159,7 @@ dy_plot
 
 ```{r,  warning = FALSE, message = FALSE}
 ##############################
-## clean data
+# clean data
 ##############################
 
 UFO_time <- UFO_data_cleaned %>%
@@ -166,14 +177,14 @@ UFO_time <- UFO_data_cleaned %>%
   rename(number_instances = n)
 
 ##############################
-## need to convert to a spatial feature object
+# need to convert to a spatial feature object
 ##############################
 
 UFO_spatial <-  st_as_sf(UFO_time, coords = c("longitude", "latitude"),
            crs = 4326)
 
 ##############################
-## create the map!
+# create the map!
 ##############################
 
 UFO_map_mv <- mapview(UFO_spatial, zcol = "duration_length", cex = "number_instances", alpha = 0.2)
@@ -192,7 +203,6 @@ UFO_map_mv
 ### Spaceship shapes (`gt`)
 
 ```{r,  warning = FALSE, message = FALSE}
-
 ##############################
 # get colors from our custom alien palette
 ##############################
@@ -200,10 +210,9 @@ UFO_map_mv
 colors_table <- alien_palette("galaxy_quest", 8, "discrete")
 
 ##############################
-## wrangle data
+# wrangle data (get counts by UFO shape)
 ##############################
 
-## get shape count
 UFO_shape_count <- UFO_data_cleaned %>%
   clean_names() %>%
   select(-date_posted) %>%
@@ -215,7 +224,7 @@ UFO_shape_count <- UFO_data_cleaned %>%
   filter(!is.na(shape)) ## There are 28 unique shapes
 
 ##############################
-## get total time by shape
+# wrangle data (get total time each shape was viewed)
 ##############################
 
 UFO_shape_times <- UFO_data_cleaned %>%
@@ -228,8 +237,9 @@ UFO_shape_times <- UFO_data_cleaned %>%
   filter(!is.na(shape))
 
 ##############################
-## combine
+# combine data frames
 ##############################
+
 UFO_shape <- left_join(UFO_shape_count, UFO_shape_times) %>%
   mutate(shape_rate_seconds = total_seconds/number_instances) %>%
   mutate(Hours = hour(seconds_to_period(shape_rate_seconds)),
@@ -239,10 +249,10 @@ UFO_shape <- left_join(UFO_shape_count, UFO_shape_times) %>%
   ungroup()
 
 ##############################
-## make the table
+# make the `gt` table
 ##############################
 
-UFO_shape_table <- UFO_shape %>%
+Table1_UFO_shapes <- UFO_shape %>%
   dplyr::arrange(desc(shape_rate_seconds)) %>%
   select(-shape_rate_seconds) %>%
   gt() %>%
@@ -266,7 +276,7 @@ UFO_shape_table <- UFO_shape %>%
 # display table in knitted doc
 ##############################
 
-UFO_shape_table
+Table1_UFO_shapes
 ```
 
 [**RESOURCE:**]{style="color: blue;"} Explore Juliette Verstaen's [`gt` R-Ladies workshop](https://github.com/j-verstaen/gt_workshop_SB_R_Ladies) for more table fun.
@@ -283,9 +293,9 @@ UFO_shape_table
 ##############################
 
 Table2_abduction_data <- UFO_data_cleaned %>% 
-  clean_names() %>% 
-  filter(str_detect(comments, "(?i)abduction")) %>% 
-  select(datetime, date_posted, country, state, city, duration_seconds, shape, comments)
+  clean_names() %>% # clean up those col headers using the janitor package
+  filter(str_detect(comments, "(?i)abduction")) %>%  # filter for any comments that mention 'abduction'
+  select(datetime, date_posted, country, state, city, duration_seconds, shape, comments) 
 
 ##############################
 # generate an interactive table (using the `DT` package) 
@@ -321,7 +331,7 @@ Table2
 ##############################
 
 leaflet_abduction_data <- UFO_data_cleaned %>% 
-  filter(str_detect(comments, "(?i)abduction")) %>% 
+  filter(str_detect(comments, "(?i)abduction")) %>% # filter for any comments mentioning 'abduction'
   mutate(latitude = as.numeric(latitude), # leaflet requires lat/long to be numeric values
          longitude = as.numeric(longitude))
 
@@ -329,8 +339,8 @@ leaflet_abduction_data <- UFO_data_cleaned %>%
 # make a custom icon 
 ###########################
 
-UFO_icon <- makeIcon(iconUrl = "media/ufo.png", 
-                     iconWidth = 35, iconHeight = 45)
+UFO_icon <- makeIcon(iconUrl = "media/ufo.png", # file path to saved .png (or URL)
+                     iconWidth = 35, iconHeight = 45) # adjust size
 
 ###########################
 # make interactive map (using the `leaflet` package)
@@ -338,9 +348,9 @@ UFO_icon <- makeIcon(iconUrl = "media/ufo.png",
 
 abduction_map <- leaflet(leaflet_abduction_data) %>% 
   addProviderTiles(providers$CartoDB.Positron) %>% # add basemap and choose style
-  addMarkers(lng = ~longitude, lat = ~latitude, icon = UFO_icon, popup = ~ comments) %>% # add UFO_icon as data points
+  addMarkers(lng = ~longitude, lat = ~latitude, icon = UFO_icon, popup = ~ comments) %>% # add UFO_icon as data points and show comments in the popup
   addMiniMap(tiles = providers$CartoDB.Positron, # add a mini map to show zoom coverage
-             toggleDisplay = TRUE)
+             toggleDisplay = TRUE) # allows user to collapse mini map
 
 ###########################
 # display map in knitted doc
