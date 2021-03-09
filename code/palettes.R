@@ -1,8 +1,8 @@
 ## Color palettes 
 
 library(RColorBrewer)
-library(colorspace)
-library(scales)
+#library(colorspace)
+#library(scales)
 
 alien_palettes <- list(
   
@@ -29,7 +29,6 @@ alien_palettes <- list(
   ## 4 colors
   ## She's one galactic girl who saves the day in a stellar way!
   zenon = c("#EBEB92", "#E13B7A", "#38368B", "#0085B8")
-  
 
 )
 

@@ -110,6 +110,7 @@ UFO_dygraph <- UFO_data_cleaned %>%
   filter(!is.na(year)) %>%
   mutate(date_seen = paste("01/01/", year, sep = "")) %>%
   mutate(date_seen = as.character(date_seen),
+         ## needs to be in date time format/class in order to be converted into extendable time series below
          date_seen = as.Date(date_seen, format = "%m/%d/%Y"))
 
 ##############################
@@ -123,7 +124,7 @@ ufo_timeseries <- xts(x = UFO_dygraph$number_instances,
 # Finally the plot
 ##############################
 
-dy_plot <- dygraph(ufo_timeseries, main = "Aliens from Earth")%>%
+dy_plot <- dygraph(ufo_timeseries, main = "Aliens from Earth") %>%
   dyRangeSelector() %>%
   dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors= colors[1]) %>%
   dyCrosshair(direction = "vertical") %>%
@@ -139,7 +140,7 @@ dy_plot
 
 ```
 
-[**RESOURCE:**]{style="color: blue;"} For more information and tips on creating dygraphs, check out [dygraphs for R](https://www.htmlwidgets.org/showcase_leaflet.html).
+[**RESOURCE:**]{style="color: blue;"} For more information and tips on (1) creating dygraphs, check out [dygraphs for R](https://www.htmlwidgets.org/showcase_leaflet.html) (2) xts objects check this [out](https://www.datacamp.com/community/blog/r-xts-cheat-sheet)
 
 <br> 
 
