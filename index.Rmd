@@ -30,7 +30,7 @@ And finally, before we get started, the [R Markdown Cookbook](https://bookdown.o
 
 <br> 
 
-## Setting up your RMarkdown file
+## Setting up your R Markdown file
 
 -   [customizing the YAML](linked_pages/yaml.html)
 -   [a note on code chunks](linked_pages/code_chunks.html)
