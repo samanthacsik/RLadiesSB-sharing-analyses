@@ -117,7 +117,7 @@ knitr::include_graphics("../media/gh_page_screenshots/03.6_knitted_example.png")
  <br>
  
 ### **Step 4:** Push your `index.Rmd` and `index.html` to GitHub. 
-If you are unfamiliar or confused by the process of getting files from your computer to GitHub, check out this fun comic by *Erika Heidi*.
+If you are unfamiliar or confused by the process of getting files from your computer to GitHub, check out this fun comic by **Erika Heidi**.
 ```{r Git Comic, echo = FALSE, fig.cap = "", out.width = '90%'}
 knitr::include_graphics("../media/gh_page_screenshots/git_comic.png")
 ```
@@ -147,14 +147,14 @@ knitr::include_graphics("../media/gh_page_screenshots/04.3_push.png")
  
 ### **Step 5:** Turn your `index.html` file into a web page.
 
-We're almost there! First head back to your GitHub repository and click the "Settings" tab.
+We're almost there! First head back to your GitHub repository and click the **Settings** tab, then select the **Pages** option from the menu on the left-hand side of the page.
 ```{r Step_05, echo = FALSE, fig.cap = "", out.width = '100%'}
 knitr::include_graphics("../media/gh_page_screenshots/05_settings.png")
 ```
 
  <br>
  
-#### **Step 5.1:** Scroll down until you find the GitHub Pages settings section. GitHub Pages is currently disabled. To activate, first select the `main` branch from the dropdown.
+#### **Step 5.1:** To activate your GitHub Page, first select the `main` branch from the dropdown.
 ```{r Step_05.1, echo = FALSE, fig.cap = "", out.width = '100%'}
 knitr::include_graphics("../media/gh_page_screenshots/05.1_select_branch.png")
 ```
