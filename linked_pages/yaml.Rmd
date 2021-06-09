@@ -26,6 +26,7 @@ author: Compiled on `r date()` by Sam Csik & Juliette Verstaen"
 output:
   html_document:
     code_folding: hide
+    code_download: true
     toc: true
     toc_float: true
     theme: spacelab
@@ -43,6 +44,7 @@ Notice that we can specify both `output` and `editor_options`. Anything that we 
 Other additions we've made are: 
 
 * **`code_folding:`** hide/show; if hide, defaults to collapsed code chunks with the ability to expand/show them individually
+* **`code_download:`** provides a button for readers of the page to download the Rmd source file
 * **`toc:`** true/false; if true, include a Table of Contents based on any specified headers
 * **`toc_float:`** true/false: if true, Table of Contents floats so that it is always visible, even when the document is scrolled
 * **`theme:`** set the Bootstrap theme to use across your document; valid themes include default, cerulean, journal, flatly, darkly, readable, spacelab, united, cosmo, lumen, paper, sandstone, simplex, and yeti 

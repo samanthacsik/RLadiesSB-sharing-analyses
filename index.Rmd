@@ -8,6 +8,7 @@ output:
     toc: true
     toc_float: true
     theme: spacelab
+    code_download: true
 editor_options: 
   chunk_output_type: console
 ---
@@ -325,7 +326,7 @@ Table2
 
 ### Map of alien abductions (`leaflet`)
 
-```{r}
+```{r, fig.alt = "An interactive map, which shows the locations of all UFO sighting where the observer mentions the word 'abduction'. The vast  majority of the accounts are in the United States."}
 ##############################
 # wrangle data (get latitude, longitude, and all comments mentioning the word "abduction")
 ##############################
